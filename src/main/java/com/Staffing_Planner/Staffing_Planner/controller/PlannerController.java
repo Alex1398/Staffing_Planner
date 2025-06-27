@@ -3,6 +3,7 @@ package com.Staffing_Planner.Staffing_Planner.controller;
 import com.Staffing_Planner.Staffing_Planner.dto.AssignDTO;
 import com.Staffing_Planner.Staffing_Planner.dto.ShiftScheduleDTO;
 import com.Staffing_Planner.Staffing_Planner.dto.WishDTO;
+import com.Staffing_Planner.Staffing_Planner.exception.WishAlreadyExistsException;
 import com.Staffing_Planner.Staffing_Planner.models.Assignment;
 import com.Staffing_Planner.Staffing_Planner.models.Employee;
 import com.Staffing_Planner.Staffing_Planner.models.ShiftType;
@@ -26,6 +27,10 @@ public class PlannerController {
     @PostMapping("/wishes")
     @ResponseStatus(HttpStatus.CREATED)
     public WishEntry postWish(@RequestBody @NotNull WishDTO dto) {
+        if(svc.existWishForThisEmployee(dto.employeeId(), dto.date())) {
+            throw new WishAlreadyExistsException(
+                    "Employee " + dto.employeeId() + " already has a wish on " + dto.date());
+        }
         return svc.addWish(dto.employeeId(), dto.date(), dto.shift());
     }
 
