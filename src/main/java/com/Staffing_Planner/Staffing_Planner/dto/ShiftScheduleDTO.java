@@ -5,5 +5,5 @@ import com.Staffing_Planner.Staffing_Planner.models.ShiftType;
 
 import java.util.List;
 
-public record ShiftScheduleDTO(ShiftType shift, List<String> employeeId) {}
+public record ShiftScheduleDTO(ShiftType shift, List<Employee> employee) {}
 

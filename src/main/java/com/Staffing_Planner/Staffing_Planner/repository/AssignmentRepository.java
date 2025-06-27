@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface AssignmentRepository extends MongoRepository<Assignment, String> {
     List<Assignment> findByDate(LocalDate date);
-    long countByDateAndShift(LocalDate date, ShiftType shift);
-    boolean existsByEmployeeIdAndDate(String employeeId, LocalDate date);
+    boolean existsByEmployees_IdAndDate(String employeeId, LocalDate date);
 }

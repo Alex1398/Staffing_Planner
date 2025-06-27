@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,8 +40,9 @@ public class PlannerService {
         return (date == null) ? wishes.findAll() : wishes.findByDate(date);
     }
 
-    public List<Assignment> assign(String date, ShiftType shift, List<String> empIds) {
-        LocalDate d = LocalDate.parse(date);
+    public List<Assignment> assign(LocalDate date, ShiftType shift, List<String> empIds) {
+        LocalDate d = date;
+        List<Employee> employeeList = new ArrayList<>();
         // enforce two per shift:
         if (empIds.size() != 2)
             throw new IllegalArgumentException("Must assign exactly two employees");
@@ -48,20 +50,34 @@ public class PlannerService {
         for (String id : empIds) {
             Optional<Employee> emp = employees.findById(id);
 
-            if (assignments.existsByEmployeeIdAndDate(id, d))
+            if (assignments.existsByEmployees_IdAndDate(id, d))
                 throw new IllegalStateException(emp.get().getName() + " already has a shift on " + date);
-            Assignment a = new Assignment();
-            a.setEmployeeId(id);
-            a.setDate(d);
-            a.setShift(shift);
-            assignments.save(a);
+
+            if(emp.isEmpty())
+                throw new IllegalStateException("Employee not exist ");
+
+            employeeList.add(emp.get());
         }
+
+        Assignment a = new Assignment();
+        a.setEmployees(employeeList);
+        a.setDate(d);
+        a.setShift(shift);
+        assignments.save(a);
         return assignments.findByDate(d);
     }
 
-    public Map<ShiftType, List<String>> getSchedule(LocalDate date) {
+//    public Map<ShiftType, List<Employee>> getSchedule(LocalDate date) {
+//        return assignments.findByDate(date).stream()
+//                .collect(groupingBy(Assignment::getShift,
+//                        mapping(Assignment::getEmployee, toList())));
+//    }
+
+    public Map<ShiftType, List<Employee>> getSchedule(LocalDate date) {
         return assignments.findByDate(date).stream()
-                .collect(groupingBy(Assignment::getShift,
-                        mapping(Assignment::getEmployeeId, toList())));
+                .collect(groupingBy(
+                        Assignment::getShift,
+                        flatMapping(a -> a.getEmployees().stream(), toList())
+                ));
     }
 }
