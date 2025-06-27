@@ -20,6 +20,9 @@ or
         mvn spring-boot:run"
 ```
 
+## Unit Testing
+To run all test enter following command: ``` mvn test ```
+
 ## Database
 Database is already set up in `application.properties` with test seeds.
 If you want another seeds can uncomment `loadData` function from  `com.Staffing_Planner.Staffing_Planner.StaffingPlannerApplication`.
