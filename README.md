@@ -68,7 +68,7 @@ curl http://localhost:8080/api/employees -H "Content-Type: application/json"
 RESPONSE: HTTP 200 (OK)
 ```
 
-### POST employees 
+### POST employees
 
 ```
 POST /api/employees 
@@ -86,4 +86,65 @@ curl -X POST http://localhost:8080/api/employees -H "Content-Type: application/j
 RESPONSE: HTTP 201 (CREATED)
 ```
 
+### GET wishes 
+```
+GET /api/wishes 
+Accept: application/json
+Content-Type: application/json
 
+curl command:
+curl http://localhost:8080/api/wishes -H "Content-Type: application/json"
+
+[
+    {
+        "id": "685d7d0b4e46e2548f5619f5",
+        "employeeId": "685d7d0a4e46e2548f5619f2",
+        "date": "2025-06-27",
+        "shift": "EARLY"
+    },
+    {
+        "id": "685d7d0b4e46e2548f5619f6",
+        "employeeId": "685d7d0b4e46e2548f5619f3",
+        "date": "2025-06-27",
+        "shift": "LATE"
+    },
+    {
+        "id": "685d7d0b4e46e2548f5619f7",
+        "employeeId": "685d7d0b4e46e2548f5619f4",
+        "date": "2025-06-28",
+        "shift": "EARLY"
+    },
+    {
+        "id": "685dcb2cf67f8090501eb476",
+        "employeeId": "emp1",
+        "date": "2025-07-02",
+        "shift": "EARLY"
+    },
+    {
+        "id": "685eba2622e59d1e06343305",
+        "employeeId": "685d7d0b4e46e2548f5619f3",
+        "date": "2025-07-15",
+        "shift": "LATE"
+    }
+]
+
+RESPONSE: HTTP 200 (OK)
+```
+
+### POST wishes 
+```
+POST /api/wishes 
+Accept: application/json
+Content-Type: application/json
+
+curl -X POST http://localhost:8080/api/wishes -H "Content-Type: application/json" -d "{\"employeeId\":\"685d7d0b4e46e2548f5619f4\",\"date\":\"2025-08-20\",\"shift\":\"EARLY\"}"
+
+{
+    "id": "685ec07e22e59d1e0634330a",
+    "employeeId": "685d7d0b4e46e2548f5619f4",
+    "date": "2025-08-20",
+    "shift": "EARLY"
+}
+
+RESPONSE: HTTP 201 (CREATED)
+```
