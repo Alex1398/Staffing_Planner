@@ -40,4 +40,50 @@ POST     http://localhost:8080/api/assign
 GET      http://localhost:8080/api/schedule?date={date}
 ```
 
+### GET all employees 
+
+```
+GET /api/employees 
+Accept: application/json
+Content-Type: application/json
+
+curl command:
+curl http://localhost:8080/api/employees -H "Content-Type: application/json"
+
+[
+  {
+    "id": "685d7d0a4e46e2548f5619f2",
+    "name": "Alice"
+  },
+  {
+    "id": "685d7d0b4e46e2548f5619f3",
+    "name": "Bob"
+  },
+  {
+    "id": "685d7d0b4e46e2548f5619f4",
+    "name": "Carol"
+  }
+]
+
+RESPONSE: HTTP 200 (OK)
+```
+
+### POST employees 
+
+```
+POST /api/employees 
+Accept: application/json
+Content-Type: application/json
+
+curl command:
+curl -X POST http://localhost:8080/api/employees -H "Content-Type: application/json" -d "{\"name\":\"Emily\"}"
+
+{
+	"id": "685ebece22e59d1e06343309",
+	"name": "Emily"
+}
+
+RESPONSE: HTTP 201 (CREATED)
+```
+
 
