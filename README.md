@@ -151,3 +151,62 @@ curl -X POST http://localhost:8080/api/wishes -H "Content-Type: application/json
 
 RESPONSE: HTTP 201 (CREATED)
 ```
+
+### POST assign
+
+```
+POST /api/assign 
+Accept: application/json
+Content-Type: application/json
+
+curl command:
+curl -X POST http://localhost:8080/api/assign -H "Content-Type: application/json" -d "{\"date\":\"2025-08-19\",\"shift\":\"EARLY\",\"employeeIds\":[\"685d7d0b4e46e2548f5619f3\",\"685d7d0a4e46e2548f5619f2\"]}"
+
+[
+    {
+        "id": "685ec2dbf538f037a1bcf0bd",
+        "employees": [
+            {
+                "id": "685d7d0b4e46e2548f5619f3",
+                "name": "Bob"
+            },
+            {
+                "id": "685d7d0a4e46e2548f5619f2",
+                "name": "Alice"
+            }
+        ],
+        "date": "2025-08-19",
+        "shift": "EARLY"
+    }
+]
+
+RESPONSE: HTTP 200 (OK)
+```
+
+### GET schedule by date
+```
+GET /api/schedule?date={date}
+Accept: application/json
+Content-Type: application/json
+
+curl command:
+curl http://localhost:8080/api/schedule?date=2025-07-17 -H "Accept: application/json"
+
+[
+    {
+        "shift": "LATE",
+        "employee": [
+            {
+                "id": "685d7d0b4e46e2548f5619f3",
+                "name": "Bob"
+            },
+            {
+                "id": "685d7d0a4e46e2548f5619f2",
+                "name": "Alice"
+            }
+        ]
+    }
+]
+
+RESPONSE: HTTP 200 (OK)
+```
