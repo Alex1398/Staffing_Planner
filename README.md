@@ -4,8 +4,8 @@
 ### Requirements
 For building and running the application you need:
 
-- [JDK 17] https://www.oracle.com/java/technologies/downloads/#java17
-- [Maven 3] https://maven.apache.org
+- [JDK 17] (https://www.oracle.com/java/technologies/downloads/#java17)
+- [Maven 3] (https://maven.apache.org)
 
 ## Running the application locally
 
@@ -25,9 +25,9 @@ Database is already set up in `application.properties` with test seeds.
 If you want another seeds can uncomment `loadData` function from  `com.Staffing_Planner.Staffing_Planner.StaffingPlannerApplication`.
 
 If you want to connect your own mongodb database create a new mongodb database:
-[MongoDB] https://www.mongodb.com/resources/products/fundamentals/create-database
+[MongoDB] (https://www.mongodb.com/resources/products/fundamentals/create-database).
 After that get connection string: 
-[Connection String] https://www.mongodb.com/basics/mongodb-connection-string
+[Connection String] (https://www.mongodb.com/basics/mongodb-connection-string).
 
 Connection string must be placed in `application.properties` `spring.data.mongodb.uri` then in `spring.data.mongodb.uri` specify desired database and into `server.port` locally running port.
 
